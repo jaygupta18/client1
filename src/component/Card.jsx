@@ -2,11 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Card.css';
-
+import {  useNavigate } from 'react-router-dom';
 const Card = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState({ name: '', category: '', imageUrl: '' });
-  const baseUrl="https://server1-yg8e.onrender.com"
+  const baseUrl="https://server1-yg8e.onrender.com";
+  const navigate = useNavigate();
   useEffect(() => {
     fetchItems();
   }, []);
@@ -20,19 +21,19 @@ const Card = () => {
     }
   };
 
-  const addItem = async () => {
-    if (!newItem.name || !newItem.category ) {
-      alert('All fields are required!');
-      return;
-    } 
-    try {
-      await axios.post(`${baseUrl}/api/add`, newItem);
-      fetchItems();
-      setNewItem({ name: '', category: '', imageUrl: '' });
-    } catch (error) {
-      console.error('Error adding item:', error);
-    }
-  };
+  // const addItem = async () => {
+  //   if (!newItem.name || !newItem.category ) {
+  //     alert('All fields are required!');
+  //     return;
+  //   } 
+  //   try {
+  //     await axios.post(`${baseUrl}/api/add`, newItem);
+  //     fetchItems();
+  //     setNewItem({ name: '', category: '', imageUrl: '' });
+  //   } catch (error) {
+  //     console.error('Error adding item:', error);
+  //   }
+  // };
 
   const deleteItem = async (id) => {
     try {
@@ -48,33 +49,11 @@ const Card = () => {
 
   return (
     <div className="container">
-      <h1>Vegetables and Fruits</h1>
-      <div className="form">
-        <input
-          type="text"
-          placeholder="Name"
-          value={newItem.name}
-          onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-        />
-        <select
-          value={newItem.category}
-          onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
-        >
-          <option value="">Select Category</option>
-          <option value="Fruit">Fruit</option>
-          <option value="Vegetable">Vegetable</option>
-        </select>
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={newItem.imageUrl}
-          onChange={(e) => setNewItem({ ...newItem, imageUrl: e.target.value })}
-        />
-        <button onClick={addItem}>Add</button>
-      </div> 
+      <h1> Fruits and Vegetables</h1>
+      <button className="firstbutton" onClick={() => navigate('/add') }>Add New Item</button>
       <div className="category-container">
         <div className="category">
-          <h2>Fruit</h2>
+          <h2>Fruits</h2>
           <ul className="item-list">
             {fruits.map((item) => (
               <li key={item._id} className="item">
@@ -86,9 +65,9 @@ const Card = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </div> 
         <div className="category">
-          <h2>Vegetable</h2>
+          <h2>Vegetables</h2>
           <ul className="item-list">
             {vegetables.map((item) => (
               <li key={item._id} className="item">
