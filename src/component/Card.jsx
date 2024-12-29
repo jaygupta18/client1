@@ -56,9 +56,9 @@ function Card() {
 
           <img
             src={
-              item.name === "Vegetables"
-                ? "https://www.freepik.com/photos/vegetable-anime"
-                : "https://www.istockphoto.com/photos/fruit"
+              item.name === "vegetables"
+                ? "https://cdn-icons-png.flaticon.com/512/135/135620.png"
+                : "https://cdn-icons-png.flaticon.com/512/135/135574.png"
             }
             alt={item.name}
             className="card-image"
