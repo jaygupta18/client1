@@ -1,78 +1,109 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./Card.css";
+// Frontend Code (React.js)
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './Card.css';
 
-function Card() {
+const Card = () => {
   const [items, setItems] = useState([]);
-   const baseUrl="https://server1-yg8e.onrender.com";
-  
+  const [newItem, setNewItem] = useState({ name: '', category: '', imageUrl: '' });
+  const baseUrl="https://server1-yg8e.onrender.com"
   useEffect(() => {
-    axios.get(`${baseUrl}/items`)
-      .then((response) => {
-        setItems(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  },[]);
+    fetchItems();
+  }, []);
 
-  const handleAdd = (name) => {
-    axios
-      .post(`${baseUrl}/add`, { name })
-      .then((response) => {
-        const updatedItems = items.map((item) =>
-          item.name === name ? { ...item, count: response.data.count } : item
-        );
-        setItems(updatedItems);
-      })
-      .catch((error) => {
-        console.error("Error adding count:", error.message);
-        if (error.response) {
-          console.error("Response error:", error.response.data);
-        }
-      });
+  const fetchItems = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/items`);
+      setItems(response.data);
+    } catch (error) {
+      console.error('Error fetching items:', error);
+    }
   };
 
-  const handleRemove = (name) => {
-    axios.post(`${baseUrl}/remove`, { name })
-      .then((response) => {
-        const updatedItems = items.map((item) =>
-          item.name === name ? { ...item, count: response.data.count } : item
-        );
-        console.log("hello");
-        setItems(updatedItems);
-      })
-      .catch((error) => {
-        console.error("Error removing count:", error);
-      });
+  const addItem = async () => {
+    if (!newItem.name || !newItem.category ) {
+      alert('All fields are required!');
+      return;
+    } 
+    try {
+      await axios.post(`${baseUrl}/api/add`, newItem);
+      fetchItems();
+      setNewItem({ name: '', category: '', imageUrl: '' });
+    } catch (error) {
+      console.error('Error adding item:', error);
+    }
   };
+
+  const deleteItem = async (id) => {
+    try {
+      await axios.delete(`${baseUrl}/api/remove/${id}`);
+      fetchItems();
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  };
+
+  const fruits = items.filter(item => item.category.toLowerCase() === 'fruit');
+  const vegetables = items.filter(item => item.category.toLowerCase() === 'vegetable');
 
   return (
     <div className="container">
-      
-      {items.map((item) => (
-        <div className="card" key={item.name}>
-          <h2>{item.name}</h2>
-
-          <img
-            src={
-              item.name === "vegetables"
-                ? "https://cdn-icons-png.flaticon.com/512/135/135620.png"
-                : "https://cdn-icons-png.flaticon.com/512/135/135574.png"
-            }
-            alt={item.name}
-            className="card-image"
-          />
-          <p>Count: {item.count}</p>
-          <div className="button-group">
-            <button onClick={() => handleAdd(item.name)}>Add</button>
-            <button onClick={() => handleRemove(item.name)}>Remove</button>
-          </div>
+      <h1>Vegetables and Fruits</h1>
+      <div className="form">
+        <input
+          type="text"
+          placeholder="Name"
+          value={newItem.name}
+          onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+        />
+        <select
+          value={newItem.category}
+          onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
+        >
+          <option value="">Select Category</option>
+          <option value="Fruit">Fruit</option>
+          <option value="Vegetable">Vegetable</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Image URL"
+          value={newItem.imageUrl}
+          onChange={(e) => setNewItem({ ...newItem, imageUrl: e.target.value })}
+        />
+        <button onClick={addItem}>Add</button>
+      </div> 
+      <div className="category-container">
+        <div className="category">
+          <h2>Fruit</h2>
+          <ul className="item-list">
+            {fruits.map((item) => (
+              <li key={item._id} className="item">
+                <img src={item.imageUrl} alt={item.name} />
+                <div className="item-info">
+                  <strong>{item.name}</strong> 
+                </div>
+                <button onClick={() => deleteItem(item._id)}>Delete</button>
+              </li>
+            ))}
+          </ul>
         </div>
-      ))}
+        <div className="category">
+          <h2>Vegetable</h2>
+          <ul className="item-list">
+            {vegetables.map((item) => (
+              <li key={item._id} className="item">
+                <img src={item.imageUrl} alt={item.name} />
+                <div className="item-info">
+                  <strong>{item.name}</strong>
+                </div>
+                <button onClick={() => deleteItem(item._id)}>Delete</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default Card;
-

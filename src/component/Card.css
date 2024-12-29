@@ -1,87 +1,179 @@
-/* General Reset */
+/* General Styles */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f4f4f9;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+
+/* Container */
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+h1 {
+  text-align: center;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+
+.form button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background: #218838;
+}
+
+/* Item List */
+.item-list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.item-info {
+  flex: 1;
+  font-size: 16px;
+}
+
+.item button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.item button:hover {
+  background: #c82333;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .form {
+    flex-direction: column;
   }
-  
-  /* Container Styling */
-  .container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    max-width: 1000px;
-    gap: 20px;
+
+  .form input,
+  .form button {
+    width: 100%;
   }
-  
-  /* Card Styling */
-  .card {
-    background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    flex: 1 1 300px;
-    max-width: 300px;
+
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  /* Title Styling */
-  .card h2 {
-    color: #333;
+
+  .item img {
     margin-bottom: 10px;
   }
-  
-  /* Image Styling */
-  .card-image {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    margin: 10px 0;
-  }
-  
-  /* Count Styling */
-  .card p {
-    font-size: 1.2rem;
-    color: #555;
-  }
-  
-  /* Button Group Styling */
-  .button-group {
-    margin-top: 15px;
-  }
-  
-  button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  button:last-child {
-    background-color: #f44336;
-  }
-  
-  button:last-child:hover {
-    background-color: #d32f2f;
-  }
-  
-  /* Responsive Styling */
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-    }
-  }
-  
+}
+/* App.css */
+.container {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
+
+.category-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.category {
+  width: 48%;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.category h2 {
+  margin-bottom: 10px;
+}
+
+/* .item-list {
+  list-style: none;
+  padding: 0;
+} */
+
+/* .item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+} */
+/* 
+.item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+} */
+/* 
+.item-info {
+  flex-grow: 1;
+} */
+
+/* .item button {
+  padding: 5px 10px;
+  color: #fff;
+  background-color: #ff4d4d;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.item button:hover {
+  background-color: #ff1a1a;
+} */
