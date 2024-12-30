@@ -21,20 +21,6 @@ const Card = () => {
     }
   };
 
-  // const addItem = async () => {
-  //   if (!newItem.name || !newItem.category ) {
-  //     alert('All fields are required!');
-  //     return;
-  //   } 
-  //   try {
-  //     await axios.post(`${baseUrl}/api/add`, newItem);
-  //     fetchItems();
-  //     setNewItem({ name: '', category: '', imageUrl: '' });
-  //   } catch (error) {
-  //     console.error('Error adding item:', error);
-  //   }
-  // };
-
   const deleteItem = async (id) => {
     try {
       await axios.delete(`${baseUrl}/api/remove/${id}`);
